@@ -1,0 +1,144 @@
+.referralBoxWrapper {
+  background: #f0fdf4;
+  border: 1px solid #dcfce7;
+  border-radius: 20px;
+  padding: 30px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.refIconCircle {
+  background: #22c55e;
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.refTitleBold {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #166534;
+  margin: 0;
+}
+
+.refSubtitleSmall {
+  font-size: 0.85rem;
+  color: #166534;
+  opacity: 0.7;
+  margin: 0;
+  margin-top: -10px;
+}
+
+.refLinkWhiteBox {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.refLinkLabelGray {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  margin: 0;
+}
+
+.refInputGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.refInputGray {
+  flex: 1;
+  background: #f8fafc;
+  border: 1px solid #f1f5f9;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 0.85rem;
+  color: #64748b;
+  border: none;
+}
+
+.refCopyButton {
+  background: #f1f5f9;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.refCommissionGreenBar {
+  background: #15803d;
+  border-radius: 12px;
+  padding: 20px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.refCommTextInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.refCommTitleWhite {
+  font-size: 0.7rem;
+  font-weight: 500;
+  opacity: 0.9;
+  text-transform: capitalize;
+}
+
+.refCommPercentage {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.refCommSymbol {
+  font-size: 1.8rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .referralBoxWrapper {
+    padding: 20px;
+  }
+  .refCommPercentage {
+    font-size: 1.3rem;
+  }
+  .refCommSymbol {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .refInputGroup {
+    flex-direction: column;
+  }
+  .refCopyButton {
+    width: 100%;
+    margin-top: 5px;
+  }
+  .refCommPercentage {
+    font-size: 1.1rem;
+  }
+}
+

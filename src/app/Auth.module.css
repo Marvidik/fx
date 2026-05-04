@@ -1,0 +1,187 @@
+.authPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: #f1f5f9;
+}
+
+/* Signup Card - Matching Screenshot */
+.authCard {
+  background: white;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+.authHeaderNew {
+  background: #0d4a44;
+  color: white;
+  padding: 50px 40px;
+  text-align: center;
+}
+
+.authHeaderNew h1 {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.authHeaderNew p {
+  opacity: 0.8;
+  font-size: 1rem;
+}
+
+.authContentNew {
+  padding: 60px 80px;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formGroup label {
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.9rem;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputWrapper span {
+  position: absolute;
+  left: 15px;
+  color: #94a3b8;
+  font-size: 1.2rem;
+}
+
+.inputWrapper input, .inputWrapper select {
+  width: 100%;
+  padding: 14px 16px 14px 45px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+.inputWrapper input:focus {
+  outline: none;
+  border-color: #127a6f;
+}
+
+.submitBtnNew {
+  width: 100%;
+  max-width: 400px;
+  margin: 40px auto 0;
+  display: block;
+  height: 56px;
+  background: #127a6f;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Login Split Layout - Matching Screenshot */
+.loginPage {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.loginLeft {
+  background: #0d4a44;
+  color: white;
+  padding: 80px 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.loginLeft h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.loginLeft p {
+  font-size: 1.15rem;
+  opacity: 0.85;
+  max-width: 500px;
+  margin-bottom: 50px;
+  line-height: 1.6;
+}
+
+.loginFeatures {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.loginFeatureItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.1rem;
+}
+
+.loginRight {
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.loginCardNew {
+  background: white;
+  width: 100%;
+  max-width: 540px;
+  padding: 60px 80px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.loginCardNew h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.loginCardNew p {
+  color: #64748b;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 1024px) {
+  .loginPage {
+    grid-template-columns: 1fr;
+  }
+  .loginLeft {
+    display: none;
+  }
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}
