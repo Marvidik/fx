@@ -93,3 +93,26 @@
     font-size: 3rem;
   }
 }
+
+@media (max-width: 768px) {
+  .subHero {
+    padding: 120px 0 60px;
+  }
+  .subHero h1 {
+    font-size: 2.2rem;
+    letter-spacing: -1px;
+  }
+  .subHero p {
+    font-size: 1rem;
+    margin-top: 25px;
+  }
+  .section {
+    padding: 50px 0;
+  }
+  .container {
+    padding: 0 14px;
+  }
+  .textContent h2 {
+    font-size: 2rem;
+  }
+}

@@ -47,7 +47,7 @@
 }
 
 .heroLeft h1 {
-  font-size: clamp(3rem, 6vw, 4.5rem);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
   line-height: 1.1;
   font-weight: 700;
 }
@@ -67,8 +67,9 @@
 
 .heroBottom {
   display: flex;
-  gap: 40px;
-  margin-top: 60px;
+  gap: 30px;
+  margin-top: 50px;
+  flex-wrap: wrap;
 }
 
 .heroBottomItem {
@@ -376,8 +377,33 @@
 }
 
 @media (max-width: 1024px) {
+  .heroSection {
+    padding: 60px 0;
+    text-align: center;
+  }
 
-  .heroGrid,
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .heroLeft {
+    align-items: center;
+  }
+
+  .heroLeft p {
+    margin: 0 auto;
+  }
+
+  .heroBtns {
+    justify-content: center;
+  }
+
+  .heroBottom {
+    justify-content: center;
+    gap: 20px;
+  }
+
   .statsGrid,
   .contactGrid,
   .splitGrid,
@@ -726,8 +752,24 @@
     width: 100%;
   }
 
-  .heroContent h1 {
-    font-size: 2.8rem !important;
+  .heroLeft h1 {
+    font-size: 2.4rem !important;
+  }
+
+  .heroBottom {
+    gap: 15px;
+  }
+
+  .heroBottomItem {
+    font-size: 0.8rem;
+  }
+
+  .heroStatCard {
+    padding: 20px;
+  }
+
+  .heroStatCard h3 {
+    font-size: 1.5rem;
   }
 }
 
