@@ -757,10 +757,21 @@
   }
 
   .heroBottom {
-    gap: 15px;
+    gap: 10px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-top: 30px;
   }
 
   .heroBottomItem {
+    font-size: 0.7rem;
+    gap: 6px;
+  }
+
+  .heroBottomIcon {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
     font-size: 0.8rem;
   }
 
