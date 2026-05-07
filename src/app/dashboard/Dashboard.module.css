@@ -23,6 +23,26 @@
   align-items: center;
 }
 
+.headerKycLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.headerNotifyIcon {
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0.85;
+}
+
 .dashboardHeaderBg {
   background: #166534;
   height: 320px;
@@ -99,7 +119,8 @@
   flex-direction: column;
 }
 
-.sidebarHeaderMobile {
+.sidebarHeaderMobile,
+.mobileSidebarHeader {
   display: none;
 }
 
@@ -2197,6 +2218,7 @@
   }
 }
 
+/* Consolidation and mobile fixes */
 @media (max-width: 1024px) {
   .dashboardLayout {
     flex-direction: column;
@@ -2222,18 +2244,53 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     padding: 0;
+  }
+  
+  .headerKycLink, .headerNotifyIcon {
+    display: none;
   }
 
   .closeSidebarBtn {
     display: block;
-    background: none;
+    background: rgba(255, 255, 255, 0.1);
     border: none;
     color: white;
-    font-size: 3rem;
+    font-size: 2.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     line-height: 1;
     cursor: pointer;
+  }
+  
+  .mobileSidebarHeader {
+    display: block;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .sidebarKycLink {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px 20px;
+    border-radius: 12px;
+    transition: all 0.2s;
+  }
+  
+  .sidebarKycLink:active {
+    background: rgba(255, 255, 255, 0.2);
   }
 
   .sidebarOpen {
@@ -2269,11 +2326,28 @@
   }
 
   .fixedHeader {
-    height: 250px;
+    height: 80px;
+    padding: 0 20px;
+    position: fixed;
+    background: #166534;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2100;
+    transition: transform 0.3s ease;
+  }
+
+  .fixedHeaderHidden {
+    display: none;
+  }
+
+  .sidebarOpen ~ .mainContent {
+    overflow: hidden;
   }
 
   .navGrid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .profileCard {
@@ -2300,55 +2374,13 @@
   .plansSidebarCol {
     width: 100%;
   }
-}
 
-@media (max-width: 900px) {
-  .navGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
   .summaryGridNew {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .summaryItem:nth-child(2n)::after {
-    display: none;
-  }
-
-  .summaryItem:not(:nth-child(2n))::after {
-    display: block;
-  }
-
   .welcomeSection h1 {
     font-size: 1.6rem;
-  }
-
-  .fixedHeader {
-    height: 200px;
-    padding: 20px;
-  }
-
-  .topBar {
-    margin-bottom: 30px;
-  }
-
-  .formGrid {
-    grid-template-columns: 1fr;
-    gap: 15px;
-  }
-
-  .formGroupFull {
-    grid-column: span 1;
-  }
-
-  .formActions {
-    grid-column: span 1;
-  }
-
-  .quickAmountGrid {
-    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -2359,19 +2391,6 @@
 
   .summaryGridNew {
     grid-template-columns: 1fr;
-  }
-
-  .summaryItem::after {
-    display: none !important;
-  }
-
-  .summaryItem {
-    padding: 15px 0;
-    border-bottom: 1px solid #f1f5f9;
-  }
-
-  .summaryItem:last-child {
-    border-bottom: none;
   }
 
   .profileCard {

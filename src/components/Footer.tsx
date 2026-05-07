@@ -7,18 +7,18 @@ import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
   const { t } = useLanguage();
-  
+
   return (
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.footerGrid}>
           <div className={styles.footerInfo}>
-             <div className="logo" style={{ marginBottom: '20px' }}>
-                <Image src="/logo.png" alt="ZynthrixFX Logo" width={240} height={60} style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
-             </div>
-             <p>Institutional-grade wealth management platform designed for the digital age. Secure, transparent, and high-yielding strategies.</p>
+            <div className="logo" style={{ marginBottom: '20px' }}>
+              <Image src="/withback.png" alt="ZynthrixFX Logo" width={240} height={60} />
+            </div>
+            <p>Institutional-grade wealth management platform designed for the digital age. Secure, transparent, and high-yielding strategies.</p>
           </div>
-          
+
           <div className={styles.footerCol}>
             <h4>Company</h4>
             <ul>
@@ -28,7 +28,7 @@ export default function Footer() {
               <li><Link href="/contact">Contact</Link></li>
             </ul>
           </div>
-          
+
           <div className={styles.footerCol}>
             <h4>Resources</h4>
             <ul>
@@ -38,7 +38,7 @@ export default function Footer() {
               <li><Link href="/help">Help Center</Link></li>
             </ul>
           </div>
-          
+
           <div className={styles.footerCol}>
             <h4>Legal</h4>
             <ul>
@@ -50,22 +50,22 @@ export default function Footer() {
           </div>
 
           <div className={`${styles.footerCol} ${styles.newsletter}`}>
-             <h4>Newsletter</h4>
-             <p>Get daily market insights and platform updates.</p>
-             <div className={styles.subscribeBox}>
-                <input type="email" placeholder="Email address" />
-                <button>→</button>
-             </div>
+            <h4>Newsletter</h4>
+            <p>Get daily market insights and platform updates.</p>
+            <div className={styles.subscribeBox}>
+              <input type="email" placeholder="Email address" />
+              <button>→</button>
+            </div>
           </div>
         </div>
-        
+
         <div className={styles.footerBottom}>
-           <p>© 2026 ZynthrixFX Global Limited. All rights reserved. FCA Regulated.</p>
-           <div className={styles.socials}>
-              <Link href="#">Twitter</Link>
-              <Link href="#">LinkedIn</Link>
-              <Link href="#">Telegram</Link>
-           </div>
+          <p>© 2026 ZynthrixFX Global Limited. All rights reserved. FCA Regulated.</p>
+          <div className={styles.socials}>
+            <Link href="#">Twitter</Link>
+            <Link href="#">LinkedIn</Link>
+            <Link href="#">Telegram</Link>
+          </div>
         </div>
       </div>
     </footer>

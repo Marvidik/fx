@@ -127,15 +127,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div className={styles.dashboardWrapper}>
       <div className={styles.dashboardHeaderBg}></div>
-      <header className={styles.fixedHeader}>
+      <header className={`${styles.fixedHeader} ${isSidebarOpen ? styles.fixedHeaderHidden : ''}`}>
         <div className={styles.topBar}>
           <div style={{ flex: 1 }}></div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <Link href="/dashboard/kyc" style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'rgba(255,255,255,0.85)', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.5px', textDecoration: 'none', cursor: 'pointer', pointerEvents: 'auto' }}>
+            <Link href="/dashboard/kyc" className={styles.headerKycLink}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
               KYC
             </Link>
-            <div style={{ color: 'white', fontSize: '1.2rem', cursor: 'pointer', opacity: 0.85 }}>
+            <div className={styles.headerNotifyIcon}>
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg>
             </div>
 
@@ -162,6 +162,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
           <div className={styles.sidebarLogoSection}>
              <Logo />
+             <button className={styles.closeSidebarBtn} onClick={toggleSidebar}>&times;</button>
+          </div>
+          
+          <div className={styles.mobileSidebarHeader}>
+            <Link href="/dashboard/kyc" className={styles.sidebarKycLink} onClick={() => setIsSidebarOpen(false)}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
+              KYC Verification
+            </Link>
           </div>
           <div className={styles.profileCard}>
             <div className={styles.profileImg}>
