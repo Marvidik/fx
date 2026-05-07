@@ -393,10 +393,9 @@ export const authService = {
     const response = await fetch(ENDPOINTS.kycSubmit, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
         'Authorization': `Token ${token}`
       },
-      body: JSON.stringify(payload)
+      body: payload
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail || data.error || 'KYC submission failed');

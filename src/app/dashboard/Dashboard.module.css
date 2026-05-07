@@ -1,6 +1,6 @@
 .dashboardWrapper {
   min-height: 100vh;
-  background: #f1f5f9;
+  background: #f0fdf4;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
@@ -138,7 +138,7 @@
 }
 
 .profileCard {
-  background: #15803d;
+  background: #166534;
   border-radius: 20px;
   padding: 40px 20px;
   color: white;
@@ -169,7 +169,7 @@
   width: 14px;
   height: 14px;
   background: #22c55e;
-  border: 2px solid #15803d;
+  border: 2px solid #166534;
   border-radius: 50%;
 }
 
@@ -211,7 +211,7 @@
 }
 
 .navItemActive {
-  background: #15803d;
+  background: #166534;
   color: white;
   position: relative;
 }
@@ -235,7 +235,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #15803d;
+  color: #166534;
 }
 
 .navItemActive .navItemIcon {
@@ -261,11 +261,11 @@
 }
 
 .alert {
-  background: #f0f7ff;
-  border: 1px solid #e0efff;
+  background: #f0fdf4;
+  border: 1px solid #dcfce7;
   border-radius: 15px;
   padding: 15px 25px;
-  color: #2563eb;
+  color: #166534;
   font-size: 0.85rem;
   display: flex;
   align-items: center;
@@ -378,7 +378,7 @@
 }
 
 .buyBtn {
-  background: #15803d;
+  background: #166534;
   color: white;
   border: none;
   padding: 14px 30px;
@@ -505,7 +505,7 @@
 }
 
 .refCommBar {
-  background: #15803d;
+  background: #166534;
   border-radius: 12px;
   padding: 20px 25px;
   display: flex;
@@ -588,8 +588,8 @@
   align-items: center;
   justify-content: center;
   gap: 15px;
-  background: #f0f7ff;
-  border: 1px solid #e0efff;
+  background: #f0fdf4;
+  border: 1px solid #dcfce7;
   padding: 15px 30px;
   border-radius: 12px;
   max-width: 500px;
@@ -597,7 +597,7 @@
 }
 
 .referralUrl {
-  color: #2563eb;
+  color: #166534;
   font-weight: 500;
   font-size: 0.85rem;
 }
@@ -619,7 +619,7 @@
 .copyBtnSmall:hover {
   background: #f8fafc;
   border-color: #cbd5e1;
-  color: #15803d;
+  color: #166534;
 }
 
 .copyBtnWrapper {
@@ -633,7 +633,7 @@
   bottom: 125%;
   left: 50%;
   transform: translateX(-50%);
-  background: #15803d;
+  background: #166534;
   color: white;
   padding: 6px 12px;
   border-radius: 6px;
@@ -654,7 +654,7 @@
   transform: translateX(-50%);
   border-width: 6px;
   border-style: solid;
-  border-color: #15803d transparent transparent transparent;
+  border-color: #166534 transparent transparent transparent;
 }
 
 @keyframes tooltipFadeIn {
@@ -669,7 +669,7 @@
 }
 
 .refIdText strong {
-  color: #15803d;
+  color: #166534;
   font-size: 1.1rem;
 }
 
@@ -755,9 +755,9 @@
 }
 
 .tabBtnActive {
-  background: #15803d;
+  background: #166534;
   color: white;
-  border-color: #15803d;
+  border-color: #166534;
   box-shadow: 0 4px 12px rgba(21, 128, 61, 0.2);
 }
 
@@ -823,7 +823,7 @@
 
 .updateBtn,
 .saveBtn {
-  background: #15803d;
+  background: #166534;
   color: white;
   border: none;
   padding: 12px 30px;
@@ -894,7 +894,7 @@
 }
 
 .buyPlanBtn {
-  background: #15803d;
+  background: #166534;
   color: white;
   border: none;
   padding: 14px 35px;
@@ -997,9 +997,9 @@
 }
 
 .quickAmountBtnActive {
-  background: #15803d;
+  background: #166534;
   color: white;
-  border-color: #15803d;
+  border-color: #166534;
   box-shadow: 0 4px 12px rgba(21, 128, 61, 0.2);
 }
 
@@ -1072,7 +1072,7 @@
 .radioLarge {
   width: 20px;
   height: 20px;
-  accent-color: #15803d;
+  accent-color: #166534;
 }
 
 .detailsHeader {
@@ -1110,7 +1110,7 @@
 .detailsValueLink {
   font-weight: 500;
   font-size: 0.85rem;
-  color: #2563eb;
+  color: #166534;
 }
 
 .detailsDivider {
@@ -1129,7 +1129,7 @@
 
 .totalLabel {
   font-weight: 700;
-  color: #2563eb;
+  color: #166534;
   font-size: 1rem;
 }
 
@@ -1157,7 +1157,7 @@
 }
 
 .confirmInvestBtnActive {
-  background: #15803d !important;
+  background: #166534 !important;
   color: white !important;
   box-shadow: 0 10px 20px rgba(21, 128, 61, 0.2);
 }
@@ -1198,7 +1198,7 @@
 }
 
 .radioGroup input {
-  accent-color: #15803d;
+  accent-color: #166534;
 }
 
 /* TRANSFER PAGE STYLES */
@@ -1296,7 +1296,7 @@
 }
 
 .transactionTabActive {
-  background: #15803d;
+  background: #166534;
   color: white;
   box-shadow: 0 4px 12px rgba(21, 128, 61, 0.2);
 }
@@ -1340,9 +1340,9 @@
 }
 
 .pageBtnActive {
-  background: #15803d !important;
+  background: #166534 !important;
   color: white !important;
-  border-color: #15803d !important;
+  border-color: #166534 !important;
 }
 
 /* DEPOSIT PAGE STYLES */
@@ -1431,7 +1431,7 @@
 }
 
 .methodCardActive {
-  border-color: #15803d;
+  border-color: #166534;
   background: #f0fdf4;
 }
 
@@ -1517,7 +1517,7 @@
 .viewAllBtn {
   background: none;
   border: none;
-  color: #2563eb;
+  color: #166534;
   font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
@@ -1548,7 +1548,7 @@
 
 .recentAmount {
   font-weight: 700;
-  color: #15803d;
+  color: #166534;
   font-size: 0.9rem;
 }
 
@@ -2006,7 +2006,7 @@
 .getSupportBtn {
   background: white;
   border: 1px solid #e2e8f0;
-  color: #15803d;
+  color: #166534;
   padding: 10px 20px;
   border-radius: 8px;
   font-size: 0.8rem;
@@ -2106,8 +2106,8 @@
 }
 
 .docTypeBtnActive {
-  border-color: #15803d;
-  color: #15803d;
+  border-color: #166534;
+  color: #166534;
   background: #f0fdf4;
 }
 
@@ -2182,7 +2182,7 @@
 
 .submitKycBtn {
   width: 100%;
-  background: #15803d;
+  background: #166534;
   color: white;
   border: none;
   padding: 16px;
@@ -2405,22 +2405,39 @@
     font-size: 0.8rem;
   }
   
+  .mainContainer {
+    width: 100%;
+    margin-top: 20px;
+  }
+
   .card {
     padding: 20px !important;
+    width: 100%;
   }
   
   .formGrid {
-    grid-template-columns: 1fr;
-    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .formGroup {
+    width: 100%;
+  }
+
+  .formInput, .formSelect, .formTextarea {
+    width: 100%;
   }
   
   .formGroupFull {
-    grid-column: span 1;
+    width: 100%;
   }
   
   .formActions {
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+    width: 100%;
   }
   
   .updateBtn, .saveBtn, .logoutBtnOutline {
@@ -2567,7 +2584,7 @@
   width: 24px;
   height: 24px;
   border: 3px solid #f3f3f3;
-  border-top: 3px solid #15803d;
+  border-top: 3px solid #166534;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

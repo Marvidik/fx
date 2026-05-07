@@ -111,7 +111,7 @@ export default function TransactionsPage() {
               {loading ? (
                 [1, 2, 3].map(i => (
                   <tr key={i}>
-                    <td colSpan={activeTab === 'deposit' ? 4 : 4}><div style={{ height: '20px', width: '100%', background: '#f1f5f9', borderRadius: '4px', animation: 'pulse 1.5s infinite ease-in-out' }}></div></td>
+                    <td colSpan={activeTab === 'deposit' ? 4 : 4}><div style={{ height: '20px', width: '100%', background: '#f0fdf4', borderRadius: '4px', animation: 'pulse 1.5s infinite ease-in-out' }}></div></td>
                   </tr>
                 ))
               ) : currentData.length > 0 ? (

@@ -116,7 +116,7 @@ export default function WithdrawPage() {
                     fontFamily: 'monospace',
                     fontStyle: 'italic'
                   }}>{captchaCode}</span>
-                  <button onClick={generateCaptcha} style={{ background: 'none', border: 'none', color: '#3b82f6', marginLeft: '15px', cursor: 'pointer' }}>
+                  <button onClick={generateCaptcha} style={{ background: 'none', border: 'none', color: '#166534', marginLeft: '15px', cursor: 'pointer' }}>
                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
                   </button>
                </div>

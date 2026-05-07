@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styles from '../Dashboard.module.css';
 import { authService } from '@/services/authService';
 import StatusModal from '@/components/StatusModal';
@@ -10,6 +10,12 @@ export default function KYCPage() {
   const [docType, setDocType] = useState('passport');
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState({ isOpen: false, type: 'success' as 'success' | 'error', title: '', message: '' });
+  
+  const [frontFile, setFrontFile] = useState<File | null>(null);
+  const [backFile, setBackFile] = useState<File | null>(null);
+  
+  const frontInputRef = useRef<HTMLInputElement>(null);
+  const backInputRef = useRef<HTMLInputElement>(null);
   
   const [formData, setFormData] = useState({
     first_name: '',
@@ -39,9 +45,24 @@ export default function KYCPage() {
       alert("Please confirm all information is correct.");
       return;
     }
+    if (!frontFile || !backFile) {
+      alert("Please upload both front and back sides of your document.");
+      return;
+    }
+
     setLoading(true);
     try {
-      await authService.submitKyc(formData);
+      const payload = new FormData();
+      // Append personal details
+      Object.entries(formData).forEach(([key, value]) => {
+        payload.append(key, value.toString());
+      });
+      // Append document type and files
+      payload.append('document_type', docType);
+      payload.append('document_front', frontFile);
+      payload.append('document_back', backFile);
+
+      await authService.submitKyc(payload);
       setModal({
         isOpen: true,
         type: 'success',
@@ -208,23 +229,37 @@ export default function KYCPage() {
 
             <div className={styles.formGroup} style={{ marginTop: '25px' }}>
               <label>Upload front side <span style={{color: 'red'}}>*</span></label>
-              <div className={styles.fileUploadBox}>
+              <input 
+                type="file" 
+                ref={frontInputRef} 
+                style={{ display: 'none' }} 
+                accept="image/*"
+                onChange={(e) => setFrontFile(e.target.files?.[0] || null)}
+              />
+              <div className={styles.fileUploadBox} onClick={() => frontInputRef.current?.click()}>
                  <div className={styles.fileUploadInfo}>
                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                   <span>Choose file</span>
+                   <span>{frontFile ? frontFile.name : 'Choose file'}</span>
                  </div>
-                 <div className={styles.docPreview}>🪪</div>
+                 <div className={styles.docPreview}>{frontFile ? '📄' : '🪪'}</div>
               </div>
             </div>
 
             <div className={styles.formGroup} style={{ marginTop: '20px' }}>
               <label>Upload back side <span style={{color: 'red'}}>*</span></label>
-              <div className={styles.fileUploadBox}>
+              <input 
+                type="file" 
+                ref={backInputRef} 
+                style={{ display: 'none' }} 
+                accept="image/*"
+                onChange={(e) => setBackFile(e.target.files?.[0] || null)}
+              />
+              <div className={styles.fileUploadBox} onClick={() => backInputRef.current?.click()}>
                  <div className={styles.fileUploadInfo}>
                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                   <span>Choose file</span>
+                   <span>{backFile ? backFile.name : 'Choose file'}</span>
                  </div>
-                 <div className={styles.docPreview}>🪪</div>
+                 <div className={styles.docPreview}>{backFile ? '📄' : '🪪'}</div>
               </div>
             </div>
 
