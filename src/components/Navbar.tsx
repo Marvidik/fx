@@ -45,7 +45,7 @@ export default function Navbar() {
         <div className={styles.container}>
           <Link href="/" className={styles.logo}>
             <div style={{ color: '#0f172a', fontWeight: 900, fontSize: '1.6rem', letterSpacing: '-1px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ color: '#127a6f' }}>☘️</span> Fluxphantom
+              <span style={{ color: '#127a6f' }}>☘️</span> ZynthrixFX
             </div>
           </Link>
 
@@ -85,7 +85,7 @@ export default function Navbar() {
         <div className={styles.sidebarHeader}>
           <div className={styles.sidebarLogo}>
             <div style={{ color: '#0f172a', fontWeight: 900, fontSize: '1.4rem', letterSpacing: '-1px' }}>
-              Fluxphantom
+              ZynthrixFX
             </div>
           </div>
           <button className={styles.closeBtn} onClick={() => setIsOpen(false)}>×</button>

@@ -1,11 +1,52 @@
 "use client";
 
+import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import styles from '../Auth.module.css';
 import { useLanguage } from '@/context/LanguageContext';
+import { authService } from '@/services/authService';
 
 export default function Login() {
   const { t } = useLanguage();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    rememberMe: false
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
+    setError(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    try {
+      const response = await authService.login({
+        email: formData.email,
+        password: formData.password
+      });
+
+      // Save session
+      authService.setSession(response.token, response);
+
+      // Redirect to dashboard
+      router.push('/dashboard');
+    } catch (err: any) {
+      setError(err.message || "Invalid credentials. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const MailIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -40,7 +81,7 @@ export default function Login() {
               <div style={{ width: '45px', height: '45px', background: 'white', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <BullIcon />
               </div>
-              Fluxphantom
+              ZynthrixFX
             </div>
           </div>
           <h1>Welcome to Your <br /> Professional Portal</h1>
@@ -59,7 +100,7 @@ export default function Login() {
           </div>
 
           <div style={{ marginTop: 'auto', fontSize: '0.9rem', opacity: 0.6 }}>
-            © 2026 Fluxphantom. All rights reserved.
+            © 2026 ZynthrixFX. All rights reserved.
           </div>
         </div>
 
@@ -70,12 +111,18 @@ export default function Login() {
               <p style={{ color: '#64748b' }}>Access your account</p>
             </div>
 
-            <form className={styles.authForm} style={{ textAlign: 'left' }}>
+            {error && (
+              <div style={{ background: '#fee2e2', color: '#b91c1c', padding: '12px', borderRadius: '8px', marginBottom: '20px', textAlign: 'center', fontSize: '0.9rem' }}>
+                {error}
+              </div>
+            )}
+
+            <form className={styles.authForm} style={{ textAlign: 'left' }} onSubmit={handleSubmit}>
               <div className={styles.formGroup}>
                 <label>Email Address</label>
                 <div className={styles.inputWrapper}>
                   <span style={{ color: '#94a3b8' }}><MailIcon /></span>
-                  <input type="email" placeholder="Enter your email" required />
+                  <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" required />
                 </div>
               </div>
 
@@ -85,23 +132,25 @@ export default function Login() {
                 </div>
                 <div className={styles.inputWrapper}>
                   <span style={{ color: '#94a3b8' }}><LockIcon /></span>
-                  <input type="password" placeholder="Enter your password" required />
+                  <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Enter your password" required />
                   <span style={{ left: 'auto', right: '15px', cursor: 'pointer', color: '#94a3b8' }}><EyeIcon /></span>
                 </div>
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '20px', fontSize: '0.85rem' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-                  <input type="checkbox" /> Remember me
+                  <input type="checkbox" name="rememberMe" checked={formData.rememberMe} onChange={handleChange} /> Remember me
                 </label>
                 <Link href="/forgot" style={{ color: '#127a6f', textDecoration: 'none', fontWeight: 700 }}>Forgot password?</Link>
               </div>
 
-              <button type="submit" className={styles.submitBtnNew} style={{ maxWidth: '100%' }}>Sign In →</button>
+              <button type="submit" className={styles.submitBtnNew} style={{ maxWidth: '100%' }} disabled={loading}>
+                {loading ? 'Signing In...' : 'Sign In →'}
+              </button>
             </form>
 
             <div style={{ marginTop: '30px', fontSize: '0.9rem', color: '#64748b' }}>
-              New to Fluxphantom?
+              New to ZynthrixFX?
               <div style={{ marginTop: '15px' }}>
                 <Link href="/register" style={{ color: '#127a6f', fontWeight: 700, textDecoration: 'none' }}>Create account →</Link>
               </div>

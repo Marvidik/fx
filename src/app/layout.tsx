@@ -4,7 +4,7 @@ import { LanguageProvider } from "@/context/LanguageContext";
 import ClientLayout from "@/components/ClientLayout";
 
 export const metadata: Metadata = {
-  title: "Fluxphantom | Premium Investment Platform",
+  title: "ZynthrixFX | Premium Investment Platform",
   description: "Institutional-grade technology for consistent portfolio growth across multiple asset classes.",
 };
 

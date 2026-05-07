@@ -1,10 +1,54 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../Dashboard.module.css';
+import { authService } from '@/services/authService';
 
 export default function TransactionsPage() {
   const [activeTab, setActiveTab] = useState('deposit');
+  const [deposits, setDeposits] = useState<any[]>([]);
+  const [withdrawals, setWithdrawals] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [depData, withData] = await Promise.all([
+          authService.getDeposits(),
+          authService.getWithdrawals()
+        ]);
+        setDeposits(depData || []);
+        setWithdrawals(withData || []);
+      } catch (err) {
+        console.error("Failed to fetch transaction data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const formatCurrency = (amount: number | string) => {
+    const val = typeof amount === 'string' ? parseFloat(amount) : amount;
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val || 0);
+  };
+
+  const formatDate = (dateStr: string) => {
+    return new Date(dateStr).toLocaleString();
+  };
+
+  const renderStatus = (status: boolean) => {
+    return (
+      <span className={styles.badge} style={{ 
+        background: status ? '#ecfdf5' : '#fff1f2', 
+        color: status ? '#10b981' : '#ef4444' 
+      }}>
+        {status ? 'Processed' : 'Pending'}
+      </span>
+    );
+  };
+
+  const currentData = activeTab === 'deposit' ? deposits : withdrawals;
 
   return (
     <div className={styles.mainContainer}>
@@ -57,7 +101,6 @@ export default function TransactionsPage() {
               ) : (
                 <tr>
                   <th>AMOUNT REQUESTED</th>
-                  <th>AMOUNT + CHARGES</th>
                   <th>RECEIVING MODE</th>
                   <th>STATUS</th>
                   <th>DATE CREATED</th>
@@ -65,20 +108,24 @@ export default function TransactionsPage() {
               )}
             </thead>
             <tbody>
-              {activeTab === 'deposit' ? (
-                <tr>
-                  <td style={{fontWeight: 700}}>$315000</td>
-                  <td>BTC</td>
-                  <td><span className={styles.statusBadgeGreen}>True</span></td>
-                  <td>Fri, Nov 21, 2025, 8:43 PM</td>
-                </tr>
+              {loading ? (
+                [1, 2, 3].map(i => (
+                  <tr key={i}>
+                    <td colSpan={activeTab === 'deposit' ? 4 : 4}><div style={{ height: '20px', width: '100%', background: '#f1f5f9', borderRadius: '4px', animation: 'pulse 1.5s infinite ease-in-out' }}></div></td>
+                  </tr>
+                ))
+              ) : currentData.length > 0 ? (
+                currentData.map((tx, i) => (
+                  <tr key={i}>
+                    <td style={{fontWeight: 700}}>{formatCurrency(tx.amount)}</td>
+                    <td>{tx.coin?.toUpperCase() || 'N/A'}</td>
+                    <td>{renderStatus(tx.status)}</td>
+                    <td style={{ color: '#64748b' }}>{formatDate(tx.date)}</td>
+                  </tr>
+                ))
               ) : (
                 <tr>
-                  <td style={{fontWeight: 700}}>$443150</td>
-                  <td style={{fontWeight: 700}}>$443150</td>
-                  <td>Bitcoin</td>
-                  <td><span className={styles.statusBadgeGreen}>true</span></td>
-                  <td>Fri, Nov 21, 2025, 8:48 PM</td>
+                  <td colSpan={activeTab === 'deposit' ? 4 : 4} style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>No transactions found.</td>
                 </tr>
               )}
             </tbody>
@@ -86,7 +133,7 @@ export default function TransactionsPage() {
         </div>
 
         <div className={styles.tableFooter}>
-          <p>Showing 1 to 1 of 1 entries</p>
+          <p>Showing {loading ? 0 : currentData.length} entries</p>
           <div className={styles.pagination}>
             <button disabled>Previous</button>
             <button className={styles.pageBtnActive}>1</button>

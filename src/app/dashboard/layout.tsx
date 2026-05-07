@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import styles from './Dashboard.module.css';
+import { authService } from '@/services/authService';
 
 const Logo = () => (
   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -15,8 +16,8 @@ const Logo = () => (
       </svg>
     </div>
     <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.1' }}>
-      <span style={{ color: '#22c55e', fontWeight: '700', fontSize: '1.1rem', letterSpacing: '-0.5px' }}>METAVAULT</span>
-      <span style={{ color: '#fbbf24', fontWeight: '700', fontSize: '1.1rem', letterSpacing: '0.5px' }}>ASSETS</span>
+      <span style={{ color: '#22c55e', fontWeight: '700', fontSize: '1.1rem', letterSpacing: '-0.5px' }}>ZYNTHRIX</span>
+      <span style={{ color: '#fbbf24', fontWeight: '700', fontSize: '1.1rem', letterSpacing: '0.5px' }}>FX</span>
     </div>
   </div>
 );
@@ -24,11 +25,33 @@ const Logo = () => (
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [dashboardData, setDashboardData] = useState<any>(null);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    // Safely get session on client side
+    const session = authService.getSession();
+    setUser(session.user);
+
+    const fetchData = async () => {
+      try {
+        const data = await authService.getDashboardData();
+        setDashboardData(data);
+      } catch (err) {
+        console.error("Layout data fetch error:", err);
+      }
+    };
+    fetchData();
+  }, []);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
+  const formatCurrency = (amount: number | string) => {
+    const val = typeof amount === 'string' ? parseFloat(amount) : amount;
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val || 0);
+  };
+
   const navItems = [
-    // ... items stay same
     {
       name: 'Home', icon: (
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -139,18 +162,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
           <div className={styles.sidebarLogoSection}>
              <Logo />
-             <button className={styles.closeSidebarBtn} onClick={toggleSidebar}>×</button>
           </div>
           <div className={styles.profileCard}>
             <div className={styles.profileImg}>
               <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
               <div className={styles.statusDot}></div>
             </div>
-            <h3 style={{ fontSize: '1.3rem', fontWeight: 600, marginBottom: '4px' }}>Fernando</h3>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 600, marginBottom: '4px' }}>{user?.full_name || '...'}</h3>
             <p style={{ fontSize: '0.85rem', opacity: 0.85 }}>online</p>
             <div className={styles.balanceBadge}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" y1="6" x2="12" y2="12" /><line x1="12" y1="12" x2="16" y2="14" /></svg>
-              $ 1,332,355.00
+              {dashboardData ? formatCurrency(dashboardData.account_balance) : '$ ...'}
             </div>
           </div>
 
@@ -166,6 +188,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 {item.name}
               </Link>
             ))}
+            <button 
+              className={styles.navItem} 
+              onClick={() => authService.logout()}
+              style={{ border: 'none', background: 'none', cursor: 'pointer', width: '100%', textAlign: 'left', color: '#ef4444' }}
+            >
+              <div className={styles.navItemIcon}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+              </div>
+              Logout
+            </button>
           </nav>
         </aside>
 

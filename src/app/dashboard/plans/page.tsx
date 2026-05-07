@@ -1,13 +1,83 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../Dashboard.module.css';
+import { authService } from '@/services/authService';
+import StatusModal from '@/components/StatusModal';
 
 export default function PlansPage() {
-  const [amount, setAmount] = useState('1000');
-  const [selectedPlan, setSelectedPlan] = useState('Basic Plan');
+  const [plans, setPlans] = useState<any[]>([]);
+  const [selectedPlanId, setSelectedPlanId] = useState<number | string>('');
+  const [amount, setAmount] = useState('50');
+  const [dashboardData, setDashboardData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [investing, setInvesting] = useState(false);
+  const [modal, setModal] = useState({ isOpen: false, type: 'success' as 'success' | 'error', title: '', message: '' });
 
   const quickAmounts = ['100', '250', '500', '1,000', '1,500', '2,000'];
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [plansData, dashData] = await Promise.all([
+          authService.getPlans(),
+          authService.getDashboardData()
+        ]);
+        
+        setPlans(plansData);
+        setDashboardData(dashData);
+        
+        if (plansData.length > 0) {
+          setSelectedPlanId(plansData[0].id);
+          setAmount(plansData[0].min_deposit.toString());
+        }
+      } catch (err) {
+        console.error("Failed to fetch plans data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleInvest = async () => {
+    if (!selectedPlanId || !amount) return;
+    setInvesting(true);
+    try {
+      await authService.createInvestment({
+        plan: selectedPlanId,
+        amount: Number(amount),
+        auto_reinvest: true // Default as per checkbox if I add state for it
+      });
+      setModal({
+        isOpen: true,
+        type: 'success',
+        title: 'Investment Successful',
+        message: 'Your investment has been successfully created.'
+      });
+    } catch (err: any) {
+      setModal({
+        isOpen: true,
+        type: 'error',
+        title: 'Investment Failed',
+        message: err.message || 'Failed to create investment.'
+      });
+    } finally {
+      setInvesting(false);
+    }
+  };
+
+  const selectedPlan = plans.find(p => p.id === Number(selectedPlanId));
+
+  const formatCurrency = (val: any) => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val || 0);
+  };
+
+  const isDataReady = plans.length > 0 && dashboardData;
+
+  if (loading && plans.length === 0) {
+    // Optionally show skeletons here, but for now we'll just show the structure with defaults
+  }
 
   return (
     <div className={styles.mainContainer}>
@@ -22,12 +92,22 @@ export default function PlansPage() {
               </div>
               <select 
                 className={styles.planDropdown} 
-                value={selectedPlan}
-                onChange={(e) => setSelectedPlan(e.target.value)}
+                value={selectedPlanId}
+                disabled={loading}
+                onChange={(e) => {
+                  const id = e.target.value;
+                  setSelectedPlanId(id);
+                  const plan = plans.find(p => p.id === Number(id));
+                  if (plan) setAmount(plan.min_deposit.toString());
+                }}
               >
-                <option>Basic Plan</option>
-                <option>Standard Plan</option>
-                <option>Premium Plan</option>
+                {plans.length > 0 ? (
+                  plans.map(plan => (
+                    <option key={plan.id} value={plan.id}>{plan.name}</option>
+                  ))
+                ) : (
+                  <option value="">Loading plans...</option>
+                )}
               </select>
             </div>
           </div>
@@ -51,14 +131,14 @@ export default function PlansPage() {
             <h4 className={styles.selectionTitle}>Or Enter Your Amount</h4>
             <div className={styles.amountInputBox}>
               <input 
-                type="text" 
+                type="number" 
                 value={amount} 
                 onChange={(e) => setAmount(e.target.value)} 
                 className={styles.largeAmountInput}
               />
             </div>
             <label className={styles.checkboxLabel}>
-              <input type="checkbox" className={styles.checkbox} />
+              <input type="checkbox" className={styles.checkbox} defaultChecked />
               Auto Reinvest
             </label>
           </div>
@@ -71,7 +151,7 @@ export default function PlansPage() {
                </div>
                <div className={styles.paymentMethodInfo}>
                  <span>Account Balance</span>
-                 <span className={styles.paymentBalance}>$1,332,355.00</span>
+                 <span className={styles.paymentBalance}>{formatCurrency(dashboardData?.account_balance)}</span>
                </div>
                <input type="radio" name="payment" defaultChecked className={styles.radioLarge} />
             </div>
@@ -86,43 +166,43 @@ export default function PlansPage() {
             <div className={styles.detailsContent}>
               <div className={styles.detailsRow}>
                 <span className={styles.detailsLabel}>Name of plan</span>
-                <span className={styles.detailsValueLink}>{selectedPlan}</span>
+                <span className={styles.detailsValueLink}>{selectedPlan?.name || '...'}</span>
               </div>
               <div className={styles.detailsRow}>
                 <span className={styles.detailsLabel}>Plan Price</span>
-                <span className={styles.detailsValue}>$50</span>
+                <span className={styles.detailsValue}>{formatCurrency(selectedPlan?.price)}</span>
               </div>
               <div className={styles.detailsDivider}></div>
               <div className={styles.detailsRow}>
                 <span className={styles.detailsLabel}>Duration</span>
-                <span className={styles.detailsValue}>24 hours</span>
+                <span className={styles.detailsValue}>{selectedPlan?.duration} hours</span>
               </div>
               <div className={styles.detailsRow}>
                 <span className={styles.detailsLabel}>Profit</span>
-                <span className={styles.detailsValue}>8% Hourly</span>
+                <span className={styles.detailsValue}>{selectedPlan?.profit_percent}%</span>
               </div>
               <div className={styles.detailsDivider}></div>
               <div className={styles.detailsRow}>
                 <span className={styles.detailsLabel}>Minimum Deposit</span>
-                <span className={styles.detailsValue}>$50</span>
+                <span className={styles.detailsValue}>{formatCurrency(selectedPlan?.min_deposit)}</span>
               </div>
               <div className={styles.detailsRow}>
                 <span className={styles.detailsLabel}>Maximum Deposit</span>
-                <span className={styles.detailsValue}>$499</span>
+                <span className={styles.detailsValue}>{formatCurrency(selectedPlan?.max_deposit)}</span>
               </div>
               <div className={styles.detailsDivider}></div>
               <div className={styles.detailsRow}>
                 <span className={styles.detailsLabel}>Minimum Return</span>
-                <span className={styles.detailsValue}>8%</span>
+                <span className={styles.detailsValue}>{selectedPlan?.min_return_percent}%</span>
               </div>
               <div className={styles.detailsRow}>
                 <span className={styles.detailsLabel}>Maximum Return</span>
-                <span className={styles.detailsValue}>9%</span>
+                <span className={styles.detailsValue}>{selectedPlan?.max_return_percent}%</span>
               </div>
               <div className={styles.detailsDivider}></div>
               <div className={styles.detailsRow}>
                 <span className={styles.detailsLabel}>Bonus</span>
-                <span className={styles.detailsValue}>$0</span>
+                <span className={styles.detailsValue}>{formatCurrency(selectedPlan?.bonus)}</span>
               </div>
               <div className={styles.detailsDivider}></div>
               <div className={styles.detailsRow}>
@@ -133,11 +213,25 @@ export default function PlansPage() {
                 <span className={styles.totalLabel}>Amount to Invest:</span>
                 <span className={styles.totalValue}>${amount === '' ? '0' : Number(amount).toLocaleString()}</span>
               </div>
-              <button className={styles.confirmInvestBtn}>Confirm & Invest</button>
+              <button 
+                className={`${styles.confirmInvestBtn} ${isDataReady ? styles.confirmInvestBtnActive : ''}`}
+                onClick={handleInvest}
+                disabled={!isDataReady || investing}
+              >
+                {investing ? 'Processing...' : 'Confirm & Invest'}
+              </button>
             </div>
           </div>
         </aside>
       </div>
+
+      <StatusModal 
+        isOpen={modal.isOpen}
+        onClose={() => setModal({ ...modal, isOpen: false })}
+        type={modal.type}
+        title={modal.title}
+        message={modal.message}
+      />
     </div>
   );
 }

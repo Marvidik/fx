@@ -1,11 +1,79 @@
 "use client";
 
+import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import styles from '../Auth.module.css';
 import { useLanguage } from '@/context/LanguageContext';
+import { authService } from '@/services/authService';
+import { countries } from '@/utils/countries';
 
 export default function Register() {
   const { t } = useLanguage();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  
+  const [formData, setFormData] = useState({
+    full_name: '',
+    username: '',
+    email: '',
+    confirmEmail: '',
+    phone: '',
+    country: '',
+    account_type: 'Basic',
+    address: '',
+    dob: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (formData.email !== formData.confirmEmail) {
+      setError("Emails do not match");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      // Prepare payload (removing confirm fields and adding required format for DOB)
+      const payload = {
+        full_name: formData.full_name,
+        username: formData.username,
+        email: formData.email,
+        phone: formData.phone,
+        country: formData.country,
+        account_type: formData.account_type,
+        address: formData.address,
+        dob: formData.dob ? new Date(formData.dob).toISOString() : new Date().toISOString(),
+        password: formData.password
+      };
+
+      const response = await authService.register(payload);
+      
+      // Save session
+      authService.setSession(response.token, response.user);
+      
+      router.push('/dashboard');
+    } catch (err: any) {
+      setError(err.message || "An error occurred during registration");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const UserIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -37,6 +105,12 @@ export default function Register() {
     </svg>
   );
 
+  const CalendarIcon = () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+    </svg>
+  );
+
   const LockIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
@@ -53,20 +127,26 @@ export default function Register() {
           </div>
 
           <div className={styles.authContentNew}>
-            <form className={styles.authForm}>
+            {error && (
+              <div style={{ background: '#fee2e2', color: '#b91c1c', padding: '12px', borderRadius: '8px', marginBottom: '20px', textAlign: 'center', fontSize: '0.9rem' }}>
+                {error}
+              </div>
+            )}
+            
+            <form className={styles.authForm} onSubmit={handleSubmit}>
               <div className={styles.formGrid}>
                 <div className={styles.formGroup}>
                   <label>Full Name</label>
                   <div className={styles.inputWrapper}>
                     <span style={{ color: '#94a3b8' }}><UserIcon /></span>
-                    <input type="text" placeholder="Enter your full name" required />
+                    <input type="text" name="full_name" value={formData.full_name} onChange={handleChange} placeholder="Enter your full name" required />
                   </div>
                 </div>
                 <div className={styles.formGroup}>
                   <label>Username</label>
                   <div className={styles.inputWrapper}>
                     <span style={{ color: '#94a3b8' }}><UserIcon /></span>
-                    <input type="text" placeholder="Choose a username" required />
+                    <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder="Choose a username" required />
                   </div>
                 </div>
               </div>
@@ -76,14 +156,14 @@ export default function Register() {
                   <label>Email Address</label>
                   <div className={styles.inputWrapper}>
                     <span style={{ color: '#94a3b8' }}><MailIcon /></span>
-                    <input type="email" placeholder="Enter your email" required />
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" required />
                   </div>
                 </div>
                 <div className={styles.formGroup}>
                   <label>Confirm Email</label>
                   <div className={styles.inputWrapper}>
                     <span style={{ color: '#94a3b8' }}><MailIcon /></span>
-                    <input type="email" placeholder="Confirm your email" required />
+                    <input type="email" name="confirmEmail" value={formData.confirmEmail} onChange={handleChange} placeholder="Confirm your email" required />
                   </div>
                 </div>
               </div>
@@ -93,32 +173,41 @@ export default function Register() {
                   <label>Phone Number</label>
                   <div className={styles.inputWrapper}>
                     <span style={{ color: '#94a3b8' }}><PhoneIcon /></span>
-                    <input type="tel" placeholder="+1 240 457 2508" required />
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleChange} placeholder="+1 240 457 2508" required />
                   </div>
                 </div>
                 <div className={styles.formGroup}>
                   <label>Country</label>
                   <div className={styles.inputWrapper}>
                     <span style={{ color: '#94a3b8' }}><GlobeIcon /></span>
-                    <select required>
-                      <option value="">Enter your country</option>
-                      <option value="US">United States</option>
-                      <option value="UK">United Kingdom</option>
-                      <option value="CA">Canada</option>
+                    <select name="country" value={formData.country} onChange={handleChange} required>
+                      <option value="">Select your country</option>
+                      {countries.map(country => (
+                        <option key={country} value={country}>{country}</option>
+                      ))}
                     </select>
                   </div>
                 </div>
               </div>
 
-              <div className={styles.formGroup} style={{ marginTop: '20px' }}>
-                <label>Account Type</label>
-                <div className={styles.inputWrapper}>
-                  <span style={{ color: '#94a3b8' }}><UserIcon /></span>
-                  <select required>
-                    <option value="">Choose account type</option>
-                    <option value="individual">Individual</option>
-                    <option value="corporate">Corporate</option>
-                  </select>
+              <div className={styles.formGrid} style={{ marginTop: '20px' }}>
+                <div className={styles.formGroup}>
+                  <label>Account Type</label>
+                  <div className={styles.inputWrapper}>
+                    <span style={{ color: '#94a3b8' }}><UserIcon /></span>
+                    <select name="account_type" value={formData.account_type} onChange={handleChange} required>
+                      <option value="Basic">Basic</option>
+                      <option value="Standard">Standard</option>
+                      <option value="Premium">Premium</option>
+                    </select>
+                  </div>
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Date of Birth</label>
+                  <div className={styles.inputWrapper}>
+                    <span style={{ color: '#94a3b8' }}><CalendarIcon /></span>
+                    <input type="date" name="dob" value={formData.dob} onChange={handleChange} required />
+                  </div>
                 </div>
               </div>
 
@@ -126,7 +215,7 @@ export default function Register() {
                 <label>Address</label>
                 <div className={styles.inputWrapper}>
                   <span style={{ color: '#94a3b8' }}><MapPinIcon /></span>
-                  <input type="text" placeholder="Enter your full address" required />
+                  <input type="text" name="address" value={formData.address} onChange={handleChange} placeholder="Enter your full address" required />
                 </div>
               </div>
 
@@ -135,20 +224,14 @@ export default function Register() {
                   <label>Password</label>
                   <div className={styles.inputWrapper}>
                     <span style={{ color: '#94a3b8' }}><LockIcon /></span>
-                    <input type="password" placeholder="Create a strong password" required />
-                    <span style={{ left: 'auto', right: '15px', cursor: 'pointer', color: '#94a3b8' }}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                    </span>
+                    <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Create a strong password" required />
                   </div>
                 </div>
                 <div className={styles.formGroup}>
                   <label>Confirm Password</label>
                   <div className={styles.inputWrapper}>
                     <span style={{ color: '#94a3b8' }}><LockIcon /></span>
-                    <input type="password" placeholder="Confirm your password" required />
-                    <span style={{ left: 'auto', right: '15px', cursor: 'pointer', color: '#94a3b8' }}>
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                    </span>
+                    <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Confirm your password" required />
                   </div>
                 </div>
               </div>
@@ -160,7 +243,9 @@ export default function Register() {
                 </label>
               </div>
 
-              <button type="submit" className={styles.submitBtnNew}>Create Account</button>
+              <button type="submit" className={styles.submitBtnNew} disabled={loading}>
+                {loading ? 'Creating Account...' : 'Create Account'}
+              </button>
             </form>
 
             <div style={{ textAlign: 'center', marginTop: '30px', color: '#64748b' }}>

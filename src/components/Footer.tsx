@@ -14,7 +14,7 @@ export default function Footer() {
         <div className={styles.footerGrid}>
           <div className={styles.footerInfo}>
              <div className="logo" style={{ color: 'white', fontWeight: 900, fontSize: '1.8rem', letterSpacing: '-1px' }}>
-                Fluxphantom
+                ZynthrixFX
              </div>
              <p>Institutional-grade wealth management platform designed for the digital age. Secure, transparent, and high-yielding strategies.</p>
           </div>
@@ -60,7 +60,7 @@ export default function Footer() {
         </div>
         
         <div className={styles.footerBottom}>
-           <p>© 2026 Fluxphantom Global Limited. All rights reserved. FCA Regulated.</p>
+           <p>© 2026 ZynthrixFX Global Limited. All rights reserved. FCA Regulated.</p>
            <div className={styles.socials}>
               <Link href="#">Twitter</Link>
               <Link href="#">LinkedIn</Link>
