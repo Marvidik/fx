@@ -3,23 +3,21 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import styles from './Dashboard.module.css';
 import { authService } from '@/services/authService';
 
 const Logo = () => (
-  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-    <div style={{ position: 'relative', width: '38px', height: '38px' }}>
-      <svg viewBox="0 0 100 100" width="38" height="38">
-        <path d="M50 5 L95 25 L95 75 L50 95 L5 75 L5 25 Z" fill="#22c55e" />
-        <path d="M30 35 L70 35 L75 40 L75 60 L70 65 L30 65 L25 60 L25 40 Z" fill="#fbbf24" />
-        <path d="M40 45 L60 45 L60 55 L40 55 Z" fill="#166534" />
-      </svg>
-    </div>
-    <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.1' }}>
-      <span style={{ color: '#22c55e', fontWeight: '700', fontSize: '1.1rem', letterSpacing: '-0.5px' }}>ZYNTHRIX</span>
-      <span style={{ color: '#fbbf24', fontWeight: '700', fontSize: '1.1rem', letterSpacing: '0.5px' }}>FX</span>
-    </div>
-  </div>
+  <Link href="/" className={styles.logoLink}>
+    <Image
+      src="/dashboard_logos.png"
+      alt="ZynthrixFX Logo"
+      width={220}
+      height={55}
+      priority
+      style={{ objectFit: 'contain' }}
+    />
+  </Link>
 );
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -129,6 +127,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <div className={styles.dashboardHeaderBg}></div>
       <header className={`${styles.fixedHeader} ${isSidebarOpen ? styles.fixedHeaderHidden : ''}`}>
         <div className={styles.topBar}>
+          <div className={styles.mobileLogo}>
+            <Logo />
+          </div>
           <div style={{ flex: 1 }}></div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
             <Link href="/dashboard/kyc" className={styles.headerKycLink}>
@@ -161,10 +162,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
           <div className={styles.sidebarLogoSection}>
-             <Logo />
-             <button className={styles.closeSidebarBtn} onClick={toggleSidebar}>&times;</button>
+            <Logo />
+            <button className={styles.closeSidebarBtn} onClick={toggleSidebar}>&times;</button>
           </div>
-          
+
           <div className={styles.mobileSidebarHeader}>
             <Link href="/dashboard/kyc" className={styles.sidebarKycLink} onClick={() => setIsSidebarOpen(false)}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
@@ -196,8 +197,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 {item.name}
               </Link>
             ))}
-            <button 
-              className={styles.navItem} 
+            <button
+              className={styles.navItem}
               onClick={() => authService.logout()}
               style={{ border: 'none', background: 'none', cursor: 'pointer', width: '100%', textAlign: 'left', color: '#ef4444' }}
             >

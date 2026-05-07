@@ -204,6 +204,10 @@ export default function ProfilePage() {
     }
   };
 
+  const handleLogout = () => {
+    authService.logout();
+  };
+
   const tabs = [
     { id: 'personal', label: 'Personal Settings' },
     { id: 'withdrawal', label: 'Withdrawal Settings' },
@@ -225,7 +229,7 @@ export default function ProfilePage() {
         ))}
       </div>
 
-      <div className={styles.card} style={{ padding: '40px' }}>
+      <div className={styles.card}>
         {activeTab === 'personal' && (
           <div className={styles.formGrid}>
             <div className={styles.formGroup}>
@@ -287,7 +291,7 @@ export default function ProfilePage() {
               <button className={styles.updateBtn} onClick={handleUpdateProfile} disabled={loading}>
                 {loading ? 'Updating...' : 'Update Profile'}
               </button>
-              <button className={styles.logoutBtnOutline} onClick={() => authService.logout()}>Logout</button>
+              <button className={styles.logoutBtnOutline} onClick={handleLogout}>Logout</button>
             </div>
           </div>
         )}

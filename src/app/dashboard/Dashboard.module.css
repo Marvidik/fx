@@ -120,7 +120,8 @@
 }
 
 .sidebarHeaderMobile,
-.mobileSidebarHeader {
+.mobileSidebarHeader,
+.mobileLogo {
   display: none;
 }
 
@@ -566,7 +567,7 @@
 .card {
   background: white;
   border-radius: 20px;
-  padding: 30px;
+  padding: 40px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
 }
 
@@ -2338,6 +2339,16 @@
     transition: transform 0.3s ease;
   }
 
+  .mobileLogo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .mobileLogo img {
+    max-width: 160px;
+    height: auto !important;
+  }
+  
   .fixedHeaderHidden {
     display: none;
   }
@@ -2381,6 +2392,40 @@
 
   .welcomeSection h1 {
     font-size: 1.6rem;
+  }
+
+  .tabContainer {
+    margin: 0 -20px 20px;
+    padding: 0 20px 10px;
+    gap: 8px;
+  }
+  
+  .tabBtn {
+    padding: 10px 18px;
+    font-size: 0.8rem;
+  }
+  
+  .card {
+    padding: 20px !important;
+  }
+  
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .formGroupFull {
+    grid-column: span 1;
+  }
+  
+  .formActions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .updateBtn, .saveBtn, .logoutBtnOutline {
+    width: 100%;
+    margin: 0;
   }
 }
 
