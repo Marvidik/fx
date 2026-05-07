@@ -59,19 +59,19 @@ export default function Home() {
             <div className={styles.heroRight}>
               <div className={styles.heroStatCard}>
                 <h3>$2.5B+</h3>
-                <p>Assets Under Management</p>
+                <p>{t.assetsManaged}</p>
               </div>
               <div className={styles.heroStatCard}>
                 <h3>50K+</h3>
-                <p>Active Investors</p>
+                <p>{t.activeInvestors}</p>
               </div>
               <div className={styles.heroStatCard}>
                 <h3>99.9%</h3>
-                <p>Uptime Guarantee</p>
+                <p>{t.uptimeGuarantee}</p>
               </div>
               <div className={styles.heroStatCard}>
                 <h3>24/7</h3>
-                <p>Customer Support</p>
+                <p>{t.support247}</p>
               </div>
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function Home() {
       <section className={styles.processSectionNew}>
         <div className={styles.container}>
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <div className="badge">Investment Process</div>
+            <div className="badge">{t.investmentProcessBadge}</div>
             <h2 className={styles.sectionHeading}>{t.processTitle}</h2>
             <p style={{ maxWidth: '700px', margin: '20px auto', color: 'var(--text-muted)' }}>{t.processDesc}</p>
           </div>
@@ -108,15 +108,15 @@ export default function Home() {
                 <div className={styles.timeBadge}>⏱️ 2-3 minutes</div>
               </div>
               <div className={styles.processContent}>
-                <div className="badge" style={{ color: '#3b82f6', background: 'rgba(59, 130, 246, 0.1)', marginBottom: '10px' }}>Quick & Secure Setup</div>
-                <h3>Account Registration</h3>
-                <p>Begin your investment journey with our streamlined registration process. Complete KYC verification and gain access to institutional-grade opportunities.</p>
+                <div className="badge" style={{ color: '#3b82f6', background: 'rgba(59, 130, 246, 0.1)', marginBottom: '10px' }}>{t.quickSetup}</div>
+                <h3>{t.accountRegistration}</h3>
+                <p>{t.registrationDesc}</p>
                 <ul className={styles.processChecklist}>
-                  <li>Identity Verification</li>
-                  <li>Bank Account Linking</li>
-                  <li>Risk Assessment</li>
+                  <li>{t.identityVerification}</li>
+                  <li>{t.bankLinking}</li>
+                  <li>{t.riskAssessment}</li>
                 </ul>
-                <button className={`btn btn-primary ${styles.startBtn}`}>Get Started →</button>
+                <button className={`btn btn-primary ${styles.startBtn}`}>{t.getStarted} →</button>
               </div>
             </div>
 
@@ -127,15 +127,15 @@ export default function Home() {
                 <div className={styles.timeBadge}>⏱️ Instant</div>
               </div>
               <div className={styles.processContent}>
-                <div className="badge" style={{ color: '#f97316', background: 'rgba(249, 115, 22, 0.1)', marginBottom: '10px' }}>Fund Your Portfolio</div>
-                <h3>Capital Deployment</h3>
-                <p>Deploy capital across diversified investment vehicles including cryptocurrency, forex, real estate, and precious metals through our secure gateway.</p>
+                <div className="badge" style={{ color: '#f97316', background: 'rgba(249, 115, 22, 0.1)', marginBottom: '10px' }}>{t.fundPortfolioBadge}</div>
+                <h3>{t.capitalDeployment}</h3>
+                <p>{t.deploymentDesc}</p>
                 <ul className={styles.processChecklist}>
-                  <li style={{ color: '#f97316' }}>Multiple Payment Methods</li>
-                  <li style={{ color: '#f97316' }}>Instant Processing</li>
-                  <li style={{ color: '#f97316' }}>Portfolio Allocation</li>
+                  <li style={{ color: '#f97316' }}>{t.multiplePaymentMethods}</li>
+                  <li style={{ color: '#f97316' }}>{t.instantProcessing}</li>
+                  <li style={{ color: '#f97316' }}>{t.portfolioAllocation}</li>
                 </ul>
-                <button className={`btn ${styles.startBtn}`} style={{ background: '#f97316', color: 'white' }}>Get Started →</button>
+                <button className={`btn ${styles.startBtn}`} style={{ background: '#f97316', color: 'white' }}>{t.getStarted} →</button>
               </div>
             </div>
 
@@ -146,15 +146,15 @@ export default function Home() {
                 <div className={styles.timeBadge}>⏱️ Real-time</div>
               </div>
               <div className={styles.processContent}>
-                <div className="badge" style={{ color: '#6366f1', background: 'rgba(99, 102, 241, 0.1)', marginBottom: '10px' }}>Seamless Withdrawals</div>
-                <h3>Profit Distribution</h3>
-                <p>Access your returns through our automated withdrawal system. Enjoy instant payouts with comprehensive transaction tracking and tax documentation.</p>
+                <div className="badge" style={{ color: '#6366f1', background: 'rgba(99, 102, 241, 0.1)', marginBottom: '10px' }}>{t.seamlessWithdrawalsBadge}</div>
+                <h3>{t.profitDistribution}</h3>
+                <p>{t.withdrawalDesc}</p>
                 <ul className={styles.processChecklist}>
-                  <li style={{ color: '#6366f1' }}>Instant Withdrawals</li>
-                  <li style={{ color: '#6366f1' }}>Tax Documentation</li>
-                  <li style={{ color: '#6366f1' }}>Multiple Currencies</li>
+                  <li style={{ color: '#6366f1' }}>{t.instantWithdrawals}</li>
+                  <li style={{ color: '#6366f1' }}>{t.taxDoc}</li>
+                  <li style={{ color: '#6366f1' }}>{t.multiCurrency}</li>
                 </ul>
-                <button className={`btn ${styles.startBtn}`} style={{ background: '#6366f1', color: 'white' }}>Get Started →</button>
+                <button className={`btn ${styles.startBtn}`} style={{ background: '#6366f1', color: 'white' }}>{t.getStarted} →</button>
               </div>
             </div>
           </div>
@@ -176,29 +176,29 @@ export default function Home() {
                 <div className={styles.heroBottomItem}>
                    <div className={styles.heroBottomIcon} style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981' }}>✓</div>
                    <div>
-                     <h4 style={{ fontSize: '1rem' }}>Diversified Strategies</h4>
-                     <p style={{ fontSize: '0.85rem', opacity: 0.6 }}>Expert-managed portfolios across crypto, forex, and real estate.</p>
+                     <h4 style={{ fontSize: '1rem' }}>{t.diversifiedStrategies}</h4>
+                     <p style={{ fontSize: '0.85rem', opacity: 0.6 }}>{t.diversifiedDesc}</p>
                    </div>
                 </div>
                 <div className={styles.heroBottomItem}>
                    <div className={styles.heroBottomIcon} style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6' }}>✓</div>
                    <div>
-                     <h4 style={{ fontSize: '1rem' }}>Transparent Operations</h4>
-                     <p style={{ fontSize: '0.85rem', opacity: 0.6 }}>Real-time portfolio tracking and comprehensive reporting.</p>
+                     <h4 style={{ fontSize: '1rem' }}>{t.transparentOps}</h4>
+                     <p style={{ fontSize: '0.85rem', opacity: 0.6 }}>{t.transparentOpsDesc}</p>
                    </div>
                 </div>
                 <div className={styles.heroBottomItem}>
                    <div className={styles.heroBottomIcon} style={{ background: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b' }}>✓</div>
                    <div>
-                     <h4 style={{ fontSize: '1rem' }}>Risk Management</h4>
-                     <p style={{ fontSize: '0.85rem', opacity: 0.6 }}>Advanced hedging strategies and position sizing algorithms.</p>
+                     <h4 style={{ fontSize: '1rem' }}>{t.risk}</h4>
+                     <p style={{ fontSize: '0.85rem', opacity: 0.6 }}>{t.riskMgmtDesc}</p>
                    </div>
                 </div>
                 <div className={styles.heroBottomItem}>
                    <div className={styles.heroBottomIcon} style={{ background: 'rgba(168, 85, 247, 0.1)', color: '#a855f7' }}>✓</div>
                    <div>
-                     <h4 style={{ fontSize: '1rem' }}>24/7 Support</h4>
-                     <p style={{ fontSize: '0.85rem', opacity: 0.6 }}>Dedicated support team available round the clock.</p>
+                     <h4 style={{ fontSize: '1rem' }}>{t.support247}</h4>
+                     <p style={{ fontSize: '0.85rem', opacity: 0.6 }}>{t.supportDesc}</p>
                    </div>
                 </div>
               </div>
@@ -206,19 +206,19 @@ export default function Home() {
               <div className={styles.mgmtStatRow}>
                  <div className={styles.mgmtStatItem}>
                    <h2>98.7%</h2>
-                   <p>Success Rate</p>
+                   <p>{t.successRate}</p>
                  </div>
                  <div className={styles.mgmtStatItem}>
                    <h2>$2.8B+</h2>
-                   <p>Assets Managed</p>
+                   <p>{t.assetsManaged}</p>
                  </div>
                  <div className={styles.mgmtStatItem}>
                    <h2>15K+</h2>
-                   <p>Active Investors</p>
+                   <p>{t.activeInvestors}</p>
                  </div>
                  <div className={styles.mgmtStatItem}>
                    <h2>50+</h2>
-                   <p>Global Markets</p>
+                   <p>{t.globalMarkets}</p>
                  </div>
               </div>
             </div>
@@ -227,15 +227,15 @@ export default function Home() {
               <div className={styles.visualCard}>
                 <div style={{ position: 'relative' }}>
                    <div style={{ position: 'absolute', bottom: '20px', left: '20px', zIndex: 2, color: 'white' }}>
-                      <p style={{ fontSize: '0.7rem', textTransform: 'uppercase', opacity: 0.8 }}>Investment Analytics</p>
-                      <h4 style={{ fontSize: '1.2rem' }}>Real-Time Market Data</h4>
+                      <p style={{ fontSize: '0.7rem', textTransform: 'uppercase', opacity: 0.8 }}>{t.investmentAnalytics}</p>
+                      <h4 style={{ fontSize: '1.2rem' }}>{t.realTimeData}</h4>
                    </div>
                    <Image src="/images/chort.jpg" alt="Analytics" width={600} height={400} style={{ height: "auto" }} />
                 </div>
               </div>
               <div className={styles.visualCard} style={{ background: '#000', position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                  <div style={{ position: 'absolute', bottom: '20px', left: '20px', zIndex: 2, color: 'white' }}>
-                    <p style={{ fontSize: '0.7rem', textTransform: 'uppercase', opacity: 0.8 }}>Platform Overview</p>
+                    <p style={{ fontSize: '0.7rem', textTransform: 'uppercase', opacity: 0.8 }}>{t.platformOverview}</p>
                  </div>
                  <div style={{ width: '60px', height: '60px', background: 'rgba(255,255,255,0.2)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: '1.5rem' }}>▶</div>
                  <Image src="/images/chortt.jpg" alt="Chart" width={600} height={200} style={{ opacity: 0.5, height: "auto" }} />
@@ -295,17 +295,17 @@ export default function Home() {
                        </div>
                        <div className={styles.tpStars}>★★★★★</div>
                     </div>
-                    <p style={{ fontStyle: 'italic', color: '#475569', lineHeight: '1.6' }}>"Outstanding investment platform with transparent reporting and consistent returns. Professional service exceeded expectations."</p>
-                    <p style={{ fontSize: '0.85rem', fontWeight: 700, marginTop: '15px' }}>— Verified Investor Review</p>
+                    <p style={{ fontStyle: 'italic', color: '#475569', lineHeight: '1.6' }}>{t.trustpilotDesc}</p>
+                    <p style={{ fontSize: '0.85rem', fontWeight: 700, marginTop: '15px' }}>— {t.verifiedReviewer}</p>
                  </div>
 
                  <div className={styles.referralCardNew}>
-                    <div className={styles.refBadge}>REFERRAL PROGRAM</div>
+                    <div className={styles.refBadge}>{t.referralProgram}</div>
                     <div className={styles.refContent}>
                        <h2>{t.earnComm}</h2>
                        <p>{t.earnCommSub}</p>
-                       <div className={styles.refPercent}>5.00% <span>Per Referral</span></div>
-                       <button className={styles.learnMoreBtn}>Learn More</button>
+                       <div className={styles.refPercent}>5.00% <span>{t.perReferral}</span></div>
+                       <button className={styles.learnMoreBtn}>{t.learnMore}</button>
                     </div>
                  </div>
               </div>
@@ -317,7 +317,7 @@ export default function Home() {
       <section className={styles.plansSection}>
         <div className={styles.container}>
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <div className="badge">Pricing Plans</div>
+            <div className="badge">{t.pricingPlans}</div>
             <h2 className={styles.sectionHeading}>{t.plansTitle}</h2>
             <p style={{ maxWidth: '700px', margin: '20px auto', color: 'var(--text-muted)' }}>{t.plansDesc}</p>
           </div>
@@ -325,7 +325,7 @@ export default function Home() {
           <div className={styles.plansGrid}>
             {plans.map((plan, idx) => (
               <div key={idx} className={`${styles.planCard} ${plan.cardClass}`}>
-                {plan.recommended && <div className={styles.planBadge}>⭐ RECOMMENDED CHOICE</div>}
+                {plan.recommended && <div className={styles.planBadge}>⭐ {t.recommendedChoice}</div>}
                 <div className={`${styles.planHeader} ${plan.headerClass}`}>
                   <div className={styles.planIcon}>{plan.icon}</div>
                   <h3>{plan.name}</h3>
@@ -337,8 +337,8 @@ export default function Home() {
                     <div className={styles.marketInfo}>
                       <div style={{ width: '20px', height: '20px', background: '#f25022', borderRadius: '4px' }}></div>
                       <div className={styles.marketText}>
-                        <h4>MSFT Reference</h4>
-                        <p>Live Market Price</p>
+                        <h4>{t.msftRef}</h4>
+                        <p>{t.liveMarketPrice}</p>
                       </div>
                     </div>
                     <div className={styles.marketPrice}>
@@ -347,20 +347,20 @@ export default function Home() {
                     </div>
                   </div>
                   <div className={styles.investmentRange}>
-                    <h4>Investment Range</h4>
+                    <h4>{t.investmentRange}</h4>
                     <div className={styles.rangeGrid}>
                       <div className={styles.rangeItem}>
-                        <p>Minimum</p>
+                        <p>{t.minimum}</p>
                         <h3>{plan.min}</h3>
                       </div>
                       <div className={styles.rangeItem}>
-                        <p>Maximum</p>
+                        <p>{t.maximum}</p>
                         <h3>{plan.max}</h3>
                       </div>
                     </div>
                   </div>
                   <div className={styles.referralSection}>
-                    <p>Referral Commission</p>
+                    <p>{t.referralComm}</p>
                     <div className={styles.referralRates}>
                       <span>3%</span>
                       <span>1%</span>
@@ -370,7 +370,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className={styles.protectedBadge}>
-                    <span>🔒</span> Principal Protected & Included
+                    <span>🔒</span> {t.principalProtected}
                   </div>
                   <button className={styles.investNowBtn}>
                     {t.investNow} ↗
@@ -386,8 +386,8 @@ export default function Home() {
       <section className={styles.chartSection} style={{ padding: '80px 0', background: '#0F1B35' }}>
         <div className={styles.container}>
            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <div className="badge" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.2)' }}>Live Market Analysis</div>
-              <h2 style={{ color: 'white', fontSize: '2.5rem', marginTop: '15px' }}>Real-time Technical Charts</h2>
+              <div className="badge" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.2)' }}>{t.liveAnalysis}</div>
+              <h2 style={{ color: 'white', fontSize: '2.5rem', marginTop: '15px' }}>{t.technicalCharts}</h2>
            </div>
            <TradingViewWidget />
         </div>
@@ -397,50 +397,50 @@ export default function Home() {
       <section className={styles.whyChooseUs}>
         <div className={styles.container}>
            <div style={{ textAlign: 'center' }}>
-              <div className="badge">Why Choose Us</div>
-              <h2 className={styles.sectionHeading}>Trusted by <span className="gradient-text">Thousands</span> of Investors</h2>
-              <p style={{ maxWidth: '600px', margin: '20px auto', color: 'var(--text-muted)' }}>Experience the difference with our premium investment platform designed for modern investors.</p>
+              <div className="badge">{t.whyChooseUs}</div>
+              <h2 className={styles.sectionHeading}>{t.trustedByThousands.split('Thousands')[0]}<span className="gradient-text">Thousands</span>{t.trustedByThousands.split('Thousands')[1]}</h2>
+              <p style={{ maxWidth: '600px', margin: '20px auto', color: 'var(--text-muted)' }}>{t.experienceDifference}</p>
            </div>
            
            <div className={styles.featureGrid}>
               <div className={styles.featureCard}>
                  <div className={styles.featureIcon} style={{ background: 'rgba(59, 130, 246, 0.1)', color: '#3b82f6' }}>🎖️</div>
-                 <h3>Certified Excellence</h3>
-                 <p>Fully licensed and regulated with industry certifications.</p>
+                 <h3>{t.certifiedExcellence}</h3>
+                 <p>{t.certifiedDesc}</p>
               </div>
               <div className={styles.featureCard}>
                  <div className={styles.featureIcon} style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981' }}>🛡️</div>
-                 <h3>Secure Transactions</h3>
-                 <p>Bank-grade encryption and multi-layer security protocols.</p>
+                 <h3>{t.secureTrans}</h3>
+                 <p>{t.secureTransDesc}</p>
               </div>
               <div className={styles.featureCard}>
                  <div className={styles.featureIcon} style={{ background: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b' }}>💳</div>
-                 <h3>Instant Withdrawals</h3>
-                 <p>Process withdrawals 24/7 with immediate fund transfers.</p>
+                 <h3>{t.instantWithdrawalsFeature}</h3>
+                 <p>{t.instantWithdrawalsDesc}</p>
               </div>
               <div className={styles.featureCard}>
                  <div className={styles.featureIcon} style={{ background: 'rgba(168, 85, 247, 0.1)', color: '#a855f7' }}>🎧</div>
-                 <h3>24/7 Support</h3>
-                 <p>Round-the-clock customer service and technical assistance.</p>
+                 <h3>{t.support247}</h3>
+                 <p>{t.support247Desc}</p>
               </div>
            </div>
 
            <div className={styles.trustStats}>
               <div className={styles.trustStatItem}>
                  <h2>99.9%</h2>
-                 <p>Uptime Guarantee</p>
+                 <p>{t.uptimeGuarantee}</p>
               </div>
               <div className={styles.trustStatItem}>
                  <h2>24/7</h2>
-                 <p>Market Access</p>
+                 <p>{t.marketAccess}</p>
               </div>
               <div className={styles.trustStatItem}>
                  <h2>256-bit</h2>
-                 <p>SSL Encryption</p>
+                 <p>{t.sslEncryption}</p>
               </div>
               <div className={styles.trustStatItem}>
                  <h2>&lt;2min</h2>
-                 <p>Withdrawal Time</p>
+                 <p>{t.withdrawalTime}</p>
               </div>
            </div>
         </div>

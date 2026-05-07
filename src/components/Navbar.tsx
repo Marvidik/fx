@@ -44,9 +44,7 @@ export default function Navbar() {
       <nav className={styles.navbar}>
         <div className={styles.container}>
           <Link href="/" className={styles.logo}>
-            <div style={{ color: '#0f172a', fontWeight: 900, fontSize: '1.6rem', letterSpacing: '-1px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span style={{ color: '#127a6f' }}>☘️</span> ZynthrixFX
-            </div>
+            <Image src="/withback.png" alt="ZynthrixFX Logo" width={260} height={65} priority style={{ objectFit: 'contain', mixBlendMode: 'multiply' }} />
           </Link>
 
           <div className={styles.navLinksCenter}>
@@ -84,9 +82,7 @@ export default function Navbar() {
       <div className={`${styles.sidebar} ${isOpen ? styles.sidebarOpen : ''}`}>
         <div className={styles.sidebarHeader}>
           <div className={styles.sidebarLogo}>
-            <div style={{ color: '#0f172a', fontWeight: 900, fontSize: '1.4rem', letterSpacing: '-1px' }}>
-              ZynthrixFX
-            </div>
+            <Image src="/withback.png" alt="ZynthrixFX Logo" width={180} height={45} style={{ objectFit: 'contain', mixBlendMode: 'multiply' }} />
           </div>
           <button className={styles.closeBtn} onClick={() => setIsOpen(false)}>×</button>
         </div>

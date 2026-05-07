@@ -2,11 +2,14 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import styles from '../Auth.module.css';
 import { authService } from '@/services/authService';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function ForgotPassword() {
+  const { t } = useLanguage();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -37,8 +40,11 @@ export default function ForgotPassword() {
     <div className={styles.authPage}>
       <div className={styles.authCard} style={{ maxWidth: '500px' }}>
         <div className={styles.authHeaderNew}>
-          <h1>Reset Password</h1>
-          <p>Enter your email to receive a verification code</p>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+            <Image src="/logo.png" alt="ZynthrixFX Logo" width={240} height={60} style={{ objectFit: 'contain', mixBlendMode: 'multiply' }} />
+          </div>
+          <h1>{t.resetPassword}</h1>
+          <p>{t.resetDesc}</p>
         </div>
 
         <div className={styles.authContentNew}>
@@ -50,26 +56,26 @@ export default function ForgotPassword() {
 
           <form className={styles.authForm} onSubmit={handleSubmit}>
             <div className={styles.formGroup}>
-              <label>Email Address</label>
+              <label>{t.emailAddress}</label>
               <div className={styles.inputWrapper}>
                 <span style={{ color: '#94a3b8' }}><MailIcon /></span>
                 <input 
                   type="email" 
                   value={email} 
                   onChange={(e) => setEmail(e.target.value)} 
-                  placeholder="Enter your registered email" 
+                  placeholder={t.enterRegisteredEmail} 
                   required 
                 />
               </div>
             </div>
 
             <button type="submit" className={styles.submitBtnNew} disabled={loading} style={{ margin: '30px auto 0' }}>
-              {loading ? 'Sending Code...' : 'Send Reset Code'}
+              {loading ? t.sendingCode : t.sendResetCode}
             </button>
           </form>
 
           <div style={{ textAlign: 'center', marginTop: '30px' }}>
-            <Link href="/login" style={{ color: '#127a6f', fontWeight: 700, textDecoration: 'none' }}>Back to Sign In</Link>
+            <Link href="/login" style={{ color: '#127a6f', fontWeight: 700, textDecoration: 'none' }}>{t.backToSignIn}</Link>
           </div>
         </div>
       </div>

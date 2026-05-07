@@ -2,11 +2,14 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 import styles from '../Auth.module.css';
 import { authService } from '@/services/authService';
 import Link from 'next/link';
+import { useLanguage } from '@/context/LanguageContext';
 
 function OTPContent() {
+  const { t } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get('email') || '';
@@ -39,7 +42,7 @@ function OTPContent() {
     e.preventDefault();
     const otpCode = otp.join('');
     if (otpCode.length < 6) {
-      setError("Please enter the full 6-digit code");
+      setError(t.enterFullCode);
       return;
     }
 
@@ -48,7 +51,7 @@ function OTPContent() {
 
     try {
       await authService.verifyOtp(email, otpCode);
-      setSuccess("Verification successful!");
+      setSuccess(t.verificationSuccessful);
       
       setTimeout(() => {
         if (type === 'reset') {
@@ -58,7 +61,7 @@ function OTPContent() {
         }
       }, 1500);
     } catch (err: any) {
-      setError(err.message || "Invalid OTP code");
+      setError(err.message || t.invalidOtp);
     } finally {
       setLoading(false);
     }
@@ -70,9 +73,9 @@ function OTPContent() {
     setSuccess(null);
     try {
       await authService.requestOtp(email);
-      setSuccess("OTP has been resent to your email.");
+      setSuccess(t.otpResent);
     } catch (err: any) {
-      setError(err.message || "Failed to resend OTP");
+      setError(err.message || t.failedResend);
     } finally {
       setLoading(false);
     }
@@ -82,8 +85,11 @@ function OTPContent() {
     <div className={styles.authPage}>
       <div className={styles.authCard} style={{ maxWidth: '500px' }}>
         <div className={styles.authHeaderNew}>
-          <h1>Verify OTP</h1>
-          <p>Enter the 6-digit code sent to <strong>{email}</strong></p>
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+            <Image src="/logo.png" alt="ZynthrixFX Logo" width={240} height={60} style={{ objectFit: 'contain', mixBlendMode: 'multiply' }} />
+          </div>
+          <h1>{t.verifyOtp}</h1>
+          <p>{t.enterCodeSentTo} <strong>{email}</strong></p>
         </div>
 
         <div className={styles.authContentNew} style={{ textAlign: 'center' }}>
@@ -127,23 +133,23 @@ function OTPContent() {
             </div>
 
             <button type="submit" className={styles.submitBtnNew} disabled={loading} style={{ margin: '0 auto' }}>
-              {loading ? 'Verifying...' : 'Verify OTP'}
+              {loading ? t.verifying : t.verifyOtp}
             </button>
           </form>
 
           <div style={{ marginTop: '30px', color: '#64748b', fontSize: '0.95rem' }}>
-            Didn't receive the code?{' '}
+            {t.didntReceiveCode}{' '}
             <button 
               onClick={handleResend} 
               disabled={loading}
               style={{ background: 'none', border: 'none', color: '#127a6f', fontWeight: 700, cursor: 'pointer', padding: 0 }}
             >
-              Resend Code
+              {t.resendCode}
             </button>
           </div>
 
           <div style={{ marginTop: '20px' }}>
-            <Link href="/login" style={{ color: '#64748b', fontSize: '0.9rem', textDecoration: 'none' }}>← Back to Login</Link>
+            <Link href="/login" style={{ color: '#64748b', fontSize: '0.9rem', textDecoration: 'none' }}>← {t.backToLogin}</Link>
           </div>
         </div>
       </div>

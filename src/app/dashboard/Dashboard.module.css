@@ -591,6 +591,53 @@
   justify-content: center;
   color: #64748b;
   cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copyBtnSmall:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #15803d;
+}
+
+.copyBtnWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.copyTooltip {
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #15803d;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: tooltipFadeIn 0.2s ease-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+}
+
+.copyTooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #15803d transparent transparent transparent;
+}
+
+@keyframes tooltipFadeIn {
+  from { opacity: 0; transform: translate(-50%, 10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
 }
 
 .refIdText {

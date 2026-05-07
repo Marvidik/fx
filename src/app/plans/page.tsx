@@ -21,8 +21,8 @@ export default function PlansPage() {
     <main>
       <section className={styles.subHero}>
         <div className={`${styles.container} ${styles.subHeroContent}`}>
-          <h1>Investment Plans</h1>
-          <p>Choose from our range of institutional-grade investment plans tailored to your financial goals and risk appetite.</p>
+          <h1>{t.investmentPlansHero}</h1>
+          <p>{t.plansHeroDesc}</p>
         </div>
       </section>
 
@@ -31,7 +31,7 @@ export default function PlansPage() {
           <div className={homeStyles.plansGrid}>
             {plans.map((plan, idx) => (
               <div key={idx} className={`${homeStyles.planCard} ${plan.cardClass}`}>
-                {plan.recommended && <div className={homeStyles.planBadge}>⭐ RECOMMENDED CHOICE</div>}
+                {plan.recommended && <div className={homeStyles.planBadge}>⭐ {t.recommendedChoice}</div>}
                 <div className={`${homeStyles.planHeader} ${plan.headerClass}`}>
                   <div className={homeStyles.planIcon}>{plan.icon}</div>
                   <h3>{plan.name}</h3>
@@ -43,8 +43,8 @@ export default function PlansPage() {
                     <div className={homeStyles.marketInfo}>
                       <div style={{ width: '20px', height: '20px', background: '#f25022', borderRadius: '4px' }}></div>
                       <div className={homeStyles.marketText}>
-                        <h4>MSFT Reference</h4>
-                        <p>Live Market Price</p>
+                        <h4>{t.msftRef}</h4>
+                        <p>{t.liveMarketPrice}</p>
                       </div>
                     </div>
                     <div className={homeStyles.marketPrice}>
@@ -53,20 +53,20 @@ export default function PlansPage() {
                     </div>
                   </div>
                   <div className={homeStyles.investmentRange}>
-                    <h4>Investment Range</h4>
+                    <h4>{t.investmentRange}</h4>
                     <div className={homeStyles.rangeGrid}>
                       <div className={homeStyles.rangeItem}>
-                        <p>Minimum</p>
+                        <p>{t.minimum}</p>
                         <h3>{plan.min}</h3>
                       </div>
                       <div className={homeStyles.rangeItem}>
-                        <p>Maximum</p>
+                        <p>{t.maximum}</p>
                         <h3>{plan.max}</h3>
                       </div>
                     </div>
                   </div>
                   <div className={homeStyles.referralSection}>
-                    <p>Referral Commission</p>
+                    <p>{t.referralComm}</p>
                     <div className={homeStyles.referralRates}>
                       <span>3%</span>
                       <span>1%</span>
@@ -76,7 +76,7 @@ export default function PlansPage() {
                     </div>
                   </div>
                   <div className={homeStyles.protectedBadge}>
-                    <span>🔒</span> Principal Protected & Included
+                    <span>🔒</span> {t.principalProtected}
                   </div>
                   <button className={homeStyles.investNowBtn}>
                     {t.investNow} ↗
@@ -91,8 +91,8 @@ export default function PlansPage() {
       <section className={styles.section} style={{ background: '#0F1B35' }}>
         <div className={styles.container}>
            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <div className="badge" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.2)' }}>Live Performance</div>
-              <h2 style={{ color: 'white', fontSize: '2.5rem', marginTop: '15px' }}>Track Market Movements</h2>
+              <div className="badge" style={{ color: 'white', borderColor: 'rgba(255,255,255,0.2)' }}>{t.livePerformance}</div>
+              <h2 style={{ color: 'white', fontSize: '2.5rem', marginTop: '15px' }}>{t.trackMovements}</h2>
            </div>
            <TradingViewWidget />
         </div>

@@ -9,6 +9,7 @@ export default function ReferralsPage() {
   const [loading, setLoading] = useState(true);
   const { user } = authService.getSession();
   const [origin, setOrigin] = useState('');
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -34,6 +35,12 @@ export default function ReferralsPage() {
     return new Date(dateStr).toLocaleString();
   };
 
+  const handleCopy = () => {
+    navigator.clipboard.writeText(referralLink);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <div className={styles.mainContainer}>
       <h2 className={styles.pageTitle}>Refer users to ZynthrixFX community</h2>
@@ -43,12 +50,12 @@ export default function ReferralsPage() {
           <h3>You can refer users by sharing your referral link:</h3>
           <div className={styles.referralLinkBox}>
             <span className={styles.referralUrl}>{referralLink}</span>
-            <button className={styles.copyBtnSmall} onClick={() => {
-              navigator.clipboard.writeText(referralLink);
-              alert('Referral link copied!');
-            }}>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            </button>
+            <div className={styles.copyBtnWrapper}>
+              <button className={styles.copyBtnSmall} onClick={handleCopy}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              {copied && <span className={styles.copyTooltip}>Copied!</span>}
+            </div>
           </div>
           <p className={styles.refIdText}>or your Referral ID <br /> <strong>{user?.username || '...'}</strong></p>
         </div>

@@ -11,8 +11,8 @@ export default function Contact() {
     <main>
       <section className={styles.subHero}>
         <div className={`${styles.container} ${styles.subHeroContent}`}>
-          <h1>Get In Touch</h1>
-          <p>Our dedicated support team is available 24/7 to assist with your investment queries and technical support.</p>
+          <h1>{t.getInTouch}</h1>
+          <p>{t.supportAvailable}</p>
         </div>
       </section>
 
@@ -20,21 +20,21 @@ export default function Contact() {
         <div className={styles.container}>
           <div className={styles.grid2}>
             <div className={styles.textContent}>
-              <div className="badge">Get in Touch</div>
-              <h2>Connect with Our Experts</h2>
-              <p>Whether you're a new investor looking for guidance or an institutional partner seeking collaboration, we're here to help.</p>
+              <div className="badge">{t.getInTouch}</div>
+              <h2>{t.connectExperts}</h2>
+              <p>{t.connectDesc}</p>
               
               <div style={{ marginTop: '40px', display: 'flex', flexDirection: 'column', gap: '30px' }}>
                 <div>
-                   <h4 style={{ fontSize: '1.1rem', marginBottom: '10px' }}>📧 Email Support</h4>
+                   <h4 style={{ fontSize: '1.1rem', marginBottom: '10px' }}>📧 {t.emailSupport}</h4>
                    <p style={{ margin: 0 }}>support@zyntrixfx.global</p>
                 </div>
                 <div>
-                   <h4 style={{ fontSize: '1.1rem', marginBottom: '10px' }}>🏢 Global Headquarters</h4>
+                   <h4 style={{ fontSize: '1.1rem', marginBottom: '10px' }}>🏢 {t.globalHeadquarters}</h4>
                    <p style={{ margin: 0 }}>Level 25, One Canada Square, Canary Wharf, London, UK</p>
                 </div>
                 <div>
-                   <h4 style={{ fontSize: '1.1rem', marginBottom: '10px' }}>📱 Telegram Channel</h4>
+                   <h4 style={{ fontSize: '1.1rem', marginBottom: '10px' }}>📱 {t.telegramChannel}</h4>
                    <p style={{ margin: 0 }}>@zyntrixfx_official</p>
                 </div>
               </div>
@@ -45,33 +45,33 @@ export default function Contact() {
                 <form className={authStyles.authForm}>
                   <div className={authStyles.formGrid}>
                     <div className={authStyles.formGroup}>
-                      <label>Name</label>
+                      <label>{t.name}</label>
                       <div className={authStyles.inputWrapper}>
                         <span>👤</span>
-                        <input type="text" placeholder="Your name" required />
+                        <input type="text" placeholder={t.yourName} required />
                       </div>
                     </div>
                     <div className={authStyles.formGroup}>
-                      <label>Email</label>
+                      <label>{t.email}</label>
                       <div className={authStyles.inputWrapper}>
                         <span>✉️</span>
-                        <input type="email" placeholder="Your email" required />
+                        <input type="email" placeholder={t.yourEmail} required />
                       </div>
                     </div>
                   </div>
                   <div className={authStyles.formGroup} style={{ marginTop: '20px' }}>
-                    <label>Subject</label>
+                    <label>{t.subject}</label>
                     <div className={authStyles.inputWrapper}>
                       <span>📌</span>
-                      <input type="text" placeholder="Topic of inquiry" required />
+                      <input type="text" placeholder={t.topicInquiry} required />
                     </div>
                   </div>
                   <div className={authStyles.formGroup} style={{ marginTop: '20px' }}>
-                    <label>Message</label>
+                    <label>{t.message}</label>
                     <div className={authStyles.inputWrapper} style={{ alignItems: 'flex-start' }}>
                       <span style={{ top: '15px' }}>💬</span>
                       <textarea 
-                        placeholder="How can we help?" 
+                        placeholder={t.howCanHelp} 
                         required 
                         style={{ 
                           width: '100%',
@@ -87,7 +87,7 @@ export default function Contact() {
                       />
                     </div>
                   </div>
-                  <button type="submit" className={authStyles.submitBtnNew} style={{ maxWidth: '100%' }}>Send Message</button>
+                  <button type="submit" className={authStyles.submitBtnNew} style={{ maxWidth: '100%' }}>{t.sendMessage}</button>
                 </form>
               </div>
             </div>

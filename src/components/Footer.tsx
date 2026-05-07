@@ -13,8 +13,8 @@ export default function Footer() {
       <div className={styles.container}>
         <div className={styles.footerGrid}>
           <div className={styles.footerInfo}>
-             <div className="logo" style={{ color: 'white', fontWeight: 900, fontSize: '1.8rem', letterSpacing: '-1px' }}>
-                ZynthrixFX
+             <div className="logo" style={{ marginBottom: '20px' }}>
+                <Image src="/logo.png" alt="ZynthrixFX Logo" width={240} height={60} style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
              </div>
              <p>Institutional-grade wealth management platform designed for the digital age. Secure, transparent, and high-yielding strategies.</p>
           </div>
