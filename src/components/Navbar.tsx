@@ -44,7 +44,7 @@ export default function Navbar() {
       <nav className={styles.navbar}>
         <div className={styles.container}>
           <Link href="/" className={styles.logo}>
-            <Image src="/withback.png" alt="ZynthrixFX Logo" width={260} height={65} priority style={{ objectFit: 'contain', mixBlendMode: 'multiply' }} />
+            <Image src="/withback.png" alt="ZynthrixFX Logo" width={180} height={45} priority style={{ objectFit: 'contain', mixBlendMode: 'multiply' }} />
           </Link>
 
           <div className={styles.navLinksCenter}>
