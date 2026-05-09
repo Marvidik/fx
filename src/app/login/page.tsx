@@ -7,12 +7,16 @@ import { useRouter } from 'next/navigation';
 import styles from '../Auth.module.css';
 import { useLanguage } from '@/context/LanguageContext';
 import { authService } from '@/services/authService';
+import StatusModal from '@/components/StatusModal';
 
 export default function Login() {
   const { t } = useLanguage();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState({ title: '', message: '', type: 'success' as 'success' | 'error', buttonText: 'Dismiss' });
 
   const [formData, setFormData] = useState({
     email: '',
@@ -36,6 +40,18 @@ export default function Login() {
         email: formData.email,
         password: formData.password
       });
+
+      if (response.status === "Not Verified") {
+        setModalContent({
+          title: "Account Not Verified",
+          message: "Your account is not verified yet. Please check your email and click the verification link to activate your account.",
+          type: 'error',
+          buttonText: "Dismiss"
+        });
+        setShowModal(true);
+        setLoading(false);
+        return;
+      }
 
       // Save session
       authService.setSession(response.token, response);
@@ -61,9 +77,19 @@ export default function Login() {
     </svg>
   );
 
-  const EyeIcon = () => (
+  const EyeIcon = ({ show }: { show: boolean }) => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" /><circle cx="12" cy="12" r="3" />
+      {show ? (
+        <>
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+          <line x1="1" y1="1" x2="23" y2="23" />
+        </>
+      ) : (
+        <>
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+          <circle cx="12" cy="12" r="3" />
+        </>
+      )}
     </svg>
   );
 
@@ -128,8 +154,13 @@ export default function Login() {
                 </div>
                 <div className={styles.inputWrapper}>
                   <span style={{ color: '#94a3b8' }}><LockIcon /></span>
-                  <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder={t.enterPassword} required />
-                  <span style={{ left: 'auto', right: '15px', cursor: 'pointer', color: '#94a3b8' }}><EyeIcon /></span>
+                  <input type={showPassword ? "text" : "password"} name="password" value={formData.password} onChange={handleChange} placeholder={t.enterPassword} required />
+                  <span 
+                    style={{ left: 'auto', right: '15px', cursor: 'pointer', color: '#94a3b8', zIndex: 10 }}
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    <EyeIcon show={showPassword} />
+                  </span>
                 </div>
               </div>
 
@@ -154,6 +185,15 @@ export default function Login() {
           </div>
         </div>
       </div>
+
+      <StatusModal 
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        title={modalContent.title}
+        message={modalContent.message}
+        type={modalContent.type}
+        buttonText={modalContent.buttonText}
+      />
     </>
   );
 }

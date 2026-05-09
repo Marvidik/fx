@@ -27,4 +27,5 @@ export const ENDPOINTS = {
   createInvestment: `${BASE_URL}user/investments/create`,
   kycSubmit: `${BASE_URL}user/kyc/submit`,
   toggleAutoReinvest: (id: number | string) => `${BASE_URL}user/investment/${id}/toggle-auto-reinvest`,
+  verifyAccount: (token: string) => `${BASE_URL}auth/verify/${token}`,
 };

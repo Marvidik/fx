@@ -44,6 +44,16 @@ export const authService = {
     if (!response.ok) throw new Error(data.error || 'OTP verification failed');
     return data;
   },
+  
+  async verifyAccount(token: string) {
+    const response = await fetch((ENDPOINTS as any).verifyAccount(token), {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.error || 'Verification failed');
+    return data;
+  },
 
   async resetPassword(payload: any) {
     const response = await fetch(ENDPOINTS.resetPassword, {

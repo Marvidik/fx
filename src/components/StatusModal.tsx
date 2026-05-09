@@ -7,9 +7,10 @@ interface StatusModalProps {
   type: 'success' | 'error';
   title: string;
   message: string;
+  buttonText?: string;
 }
 
-export default function StatusModal({ isOpen, onClose, type, title, message }: StatusModalProps) {
+export default function StatusModal({ isOpen, onClose, type, title, message, buttonText = 'Dismiss' }: StatusModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -34,7 +35,7 @@ export default function StatusModal({ isOpen, onClose, type, title, message }: S
           onClick={onClose}
           style={{ background: type === 'success' ? '#10b981' : '#ef4444' }}
         >
-          Dismiss
+          {buttonText}
         </button>
       </div>
     </div>
