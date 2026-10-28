@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://zyntrixfx.pythonanywhere.com/';
+export const BASE_URL = 'https://zynthrixfx.pythonanywhere.com/';
 
 export const ENDPOINTS = {
   register: `${BASE_URL}auth/register`,
